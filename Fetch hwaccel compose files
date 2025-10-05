@@ -1,0 +1,3 @@
+cd /mnt/user/appdata/immich && ls   # verify docker-compose.yml is present (BASH)
+wget https://raw.githubusercontent.com/immich-app/immich/refs/heads/main/docker/hwaccel.ml.yml
+wget https://raw.githubusercontent.com/immich-app/immich/refs/heads/main/docker/hwaccel.transcoding.yml
