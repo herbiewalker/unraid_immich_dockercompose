@@ -1,0 +1,2 @@
+# Pre-create Unraid folders for the Immich stack (BASH)
+mkdir -p /mnt/user/appdata/immich/{config,database/postgres,database/redis,photos}
