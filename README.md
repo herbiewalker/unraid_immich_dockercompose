@@ -13,4 +13,6 @@ https://forums.unraid.net/topic/193998-guide-immich-docker-setup-docker-compose/
 
 
 Part I: SETUP
-This....
+-Copy all the scripts from the forums and websites linked above. 
+-Go over the code to make sure my setup will be compatible. 
+-
