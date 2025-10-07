@@ -12,6 +12,7 @@ services:
     #   file: hwaccel.transcoding.yml
     #   service: cpu
     volumes:
+      # Photo upload storage
       - immich-photos:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
     env_file:
