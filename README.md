@@ -16,4 +16,4 @@ Part I: SETUP
 
 -Copy all the scripts from the forums and websites linked above. 
 -Go over the code to make sure my setup will be compatible. 
--
+-change the file paths
