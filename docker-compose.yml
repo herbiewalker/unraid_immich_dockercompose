@@ -107,13 +107,15 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /mnt/user/appdata/immich/photos
+      #changeup the path for my unraid setup with secondary cashe drives and zpool
+      #device: /mnt/user/appdata/immich/photos
       o: bind
 
   postgres-data:
     driver: local
     driver_opts:
       type: none
+      #changeup the path for my unraid setup with secondary cashe drives and zpool
       device: /mnt/user/appdata/immich/database/postgres
       o: bind
 
@@ -121,5 +123,6 @@ volumes:
     driver: local
     driver_opts:
       type: none
+      #changeup the path for my unraid setup with secondary cashe drives and zpool
       device: /mnt/user/appdata/immich/database/redis
       o: bind
