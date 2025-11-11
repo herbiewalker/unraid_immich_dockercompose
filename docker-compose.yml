@@ -100,7 +100,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /mnt/user/appdata/immich/config
+      device: /mnt/user/appdata_immich/immich/config
       o: bind
 
   immich-photos:
@@ -108,7 +108,7 @@ volumes:
     driver_opts:
       type: none
       #changeup the path for my unraid setup with secondary cashe drives and zpool
-      #device: /mnt/user/appdata/immich/photos
+      device: /mnt/user/appdata_immich/immich/photos
       o: bind
 
   postgres-data:
@@ -116,7 +116,7 @@ volumes:
     driver_opts:
       type: none
       #changeup the path for my unraid setup with secondary cashe drives and zpool
-      device: /mnt/user/appdata/immich/database/postgres
+      device: /mnt/user/appdata/immich_immich/database/postgres
       o: bind
 
   redis-data:
@@ -124,5 +124,5 @@ volumes:
     driver_opts:
       type: none
       #changeup the path for my unraid setup with secondary cashe drives and zpool
-      device: /mnt/user/appdata/immich/database/redis
+      device: /mnt/user/appdata_immich/immich/database/redis
       o: bind
