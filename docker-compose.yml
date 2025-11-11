@@ -117,7 +117,7 @@ volumes:
     driver_opts:
       type: none
       #changeup the path for my unraid setup with secondary cashe drives and zpool
-      device: /mnt/user/appdata/immich_immich/database/postgres
+      device: /mnt/user/appdata_immich/immich/database/postgres
       o: bind
 
   redis-data:
