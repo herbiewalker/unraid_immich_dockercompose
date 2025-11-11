@@ -84,7 +84,7 @@ services:
         ipv4_address: 172.19.0.13
     labels:
       #original link didnt work for icon: https://raw.githubusercontent.com/A75G/docker-templates/master/templates/icons/postgres.png needs to be updated. 
-      net.unraid.docker.icon: 'https://raw.githubusercontent.com/A75G/docker-templates/master/templates/icons/postgres.png'
+      net.unraid.docker.icon: 'https://raw.githubusercontent.com/bmartino1/unraid-docker-templates/refs/heads/main/images/postgresql-immich-logo.png'
       folder.view: immich
       net.unraid.docker.managed: 'composeman'
 
