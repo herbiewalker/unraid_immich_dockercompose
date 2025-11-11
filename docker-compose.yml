@@ -8,9 +8,9 @@ services:
   immich-server:
     container_name: immich_server
     image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
-    # extends:
-    #   file: hwaccel.transcoding.yml
-    #   service: cpu
+     extends:
+       file: hwaccel.transcoding.yml
+       service: cuda
     volumes:
       # Photo upload storage
       - immich-photos:/usr/src/app/upload
@@ -101,7 +101,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /mnt/user/appdata_immich/immich/config
+      device: /mnt/user/appdata/immich/config
       o: bind
 
   immich-photos:
@@ -109,7 +109,7 @@ volumes:
     driver_opts:
       type: none
       #changeup the path for my unraid setup with secondary cashe drives and zpool
-      device: /mnt/user/appdata_immich/immich/photos
+      device: /mnt/user/appdata/immich/photos
       o: bind
 
   postgres-data:
@@ -117,7 +117,7 @@ volumes:
     driver_opts:
       type: none
       #changeup the path for my unraid setup with secondary cashe drives and zpool
-      device: /mnt/user/appdata_immich/immich/database/postgres
+      device: /mnt/user/appdata/immich/database/postgres
       o: bind
 
   redis-data:
@@ -125,5 +125,5 @@ volumes:
     driver_opts:
       type: none
       #changeup the path for my unraid setup with secondary cashe drives and zpool
-      device: /mnt/user/appdata_immich/immich/database/redis
+      device: /mnt/user/appdata/immich/database/redis
       o: bind
