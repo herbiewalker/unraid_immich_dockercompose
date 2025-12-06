@@ -14,7 +14,9 @@ services:
     #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
     volumes:
       # Photo upload storage
-      - immich-photos:/usr/src/app/upload
+      #Changed this location to use the unraid share that will push from cashe to array or zpool
+      - immich-photos:/mnt/usr/immich/upload 
+      # Original - immich-photos:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
     env_file:
       - .env
