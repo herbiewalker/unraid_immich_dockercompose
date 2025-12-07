@@ -1,6 +1,7 @@
 # Always use the compose file from the current release:
 # https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
 # Main branch may not match the latest release.
+#Basic Docker Compose for my Unraid Setup. Will need to test and update per my chase and zpool
 
 name: immich
 
