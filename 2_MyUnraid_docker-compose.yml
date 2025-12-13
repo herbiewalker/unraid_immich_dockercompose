@@ -25,7 +25,7 @@ services:
       - .env
     ports:
       - '2283:2283'
-    depends_on:
+    depends_on: #doesnt start untill these services are running as it depends on these services
       - redis
       - database
     restart: always
