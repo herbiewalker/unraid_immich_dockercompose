@@ -18,7 +18,7 @@ services:
       #Changed this location to use the unraid share that will push from cashe to array or zpool
       - immich-photos:/mnt/usr/immich/upload 
       # Original - immich-photos:/usr/src/app/upload
-      #mount another folder location (as read only) of previous pictures from another share
+      #mount another folder location (as read only) of previous pictures from another share. Techno Tim immich video for reference. 
       #/mnt/photos:/mnt/photos:ro
       - /etc/localtime:/etc/localtime:ro
     env_file:
