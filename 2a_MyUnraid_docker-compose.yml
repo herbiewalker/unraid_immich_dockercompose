@@ -138,7 +138,8 @@ volumes:
     driver_opts:
       type: none
       # Changeup the path for my unraid setup with secondary cashe drives and zpool for the photo storage.  
-      device: /mnt/user/appdata_immich/immich/photos
+      # device: /mnt/user/appdata_immich/immich/photos # appdata_immich is the SSD cache drive.
+      device: /mnt/user/immich/immich/photos # immich is the zpool HHD drives.
       o: bind
 
   postgres-data:
