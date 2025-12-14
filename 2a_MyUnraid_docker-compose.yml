@@ -10,17 +10,16 @@ services:
     container_name: immich_server
     image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
     # Extends are taken out and the file: hwaccel.transcoding.yml info for nvenc/nvidia is added here.
-    nvenc:
-      deploy:
-        resources:
-          reservations:
-            devices:
-              - driver: nvidia
-                count: 1
-                capabilities:
-                  - gpu
-                  - compute
-                  - video
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities:
+                - gpu
+                - compute
+                - video
     volumes:
       # Photo upload storage
       # Changed this location to use the unraid share that will push from cashe to array or zpool
@@ -54,15 +53,14 @@ services:
     # For hardware acceleration, add one of -[armnn, cuda, rocm, openvino, rknn] to the image tag.
     # Example tag: ${IMMICH_VERSION:-release}-cuda
     # Extends are taken out and the file: hwaccel.ml.yml info for cuda/nvidia is added here.
-    cuda:
-      deploy:
-        resources:
-          reservations:
-            devices:
-              - driver: nvidia
-                count: 1
-                capabilities:
-                  - gpu 
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities:
+                - gpu 
     volumes:
       - model-cache:/cache
     env_file:
