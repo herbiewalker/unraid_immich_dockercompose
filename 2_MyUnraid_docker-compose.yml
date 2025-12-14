@@ -1,7 +1,7 @@
 # Always use the compose file from the current release:
 # https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
 # Main branch may not match the latest release.
-#Basic Docker Compose for my Unraid Setup. Will need to test and update per my chase and zpool
+#Basic Docker Compose for my Unraid Setup. Will need to test and update per my cashe and zpool
 
 name: immich
 
@@ -16,8 +16,8 @@ services:
     volumes:
       # Photo upload storage
       #Changed this location to use the unraid share that will push from cashe to array or zpool
-      - immich-photos:/mnt/usr/immich/upload 
-      # Original - immich-photos:/usr/src/app/upload
+      # - immich-photos:/mnt/usr/immich/upload #Posible udpate
+      - immich-photos:/usr/src/app/upload # Original
       #mount another folder location (as read only) of previous pictures from another share. Techno Tim immich video for reference. 
       #/mnt/photos:/mnt/photos:ro
       - /etc/localtime:/etc/localtime:ro
