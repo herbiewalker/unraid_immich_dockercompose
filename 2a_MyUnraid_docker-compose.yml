@@ -1,7 +1,7 @@
 # Always use the compose file from the current release:
 # https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
 # Main branch may not match the latest release.
-# Basic Docker Compose for my Unraid Setup. Will need to test and update per my cache and zpool
+# The updated Docker Compose for my Unraid Setup which includes GPU for transcode and ML. Will need to test and update per my cache and zpool
 
 name: immich
 
@@ -9,7 +9,7 @@ services:
   immich-server:
     container_name: immich_server
     image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
-    # extends are taken out and the file: hwaccel.transcoding.yml info for nvenc is added here.
+    # Extends are taken out and the file: hwaccel.transcoding.yml info for nvenc/nvidia is added here.
     nvenc:
       deploy:
         resources:
@@ -24,16 +24,16 @@ services:
     volumes:
       # Photo upload storage
       # Changed this location to use the unraid share that will push from cashe to array or zpool
-      # - immich-photos:/mnt/usr/immich/upload #Posible udpate
-      - immich-photos:/usr/src/app/upload # Original
-      #mount another folder location (as read only) of previous pictures from another share. Techno Tim immich video for reference. 
-      #/mnt/photos:/mnt/photos:ro
+      # - immich-photos:/mnt/usr/immich/upload # Posible udpate if I need to hardcode for my photos to be stored on the protecetd zpool. 
+      - immich-photos:/usr/src/app/upload # Original structure path 
+      # Mount another folder location (as read only) of previous pictures from another network share. I will need to add the user/pass file to my unraid box. Techno Tim immich video for reference. 
+      # /mnt/photos:/mnt/photos:ro
       - /etc/localtime:/etc/localtime:ro
     env_file:
       - .env
     ports:
       - '2283:2283'
-    depends_on: #doesnt start untill these services are running as it depends on these services
+    depends_on: # 'depends on' means that it doesnt start untill these services are running as it depends on these services
       - redis
       - database
     restart: always
@@ -53,7 +53,7 @@ services:
     image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}-cuda
     # For hardware acceleration, add one of -[armnn, cuda, rocm, openvino, rknn] to the image tag.
     # Example tag: ${IMMICH_VERSION:-release}-cuda
-    # extends are taken out and the file: hwaccel.ml.yml info for cuda/nvidia is added here.
+    # Extends are taken out and the file: hwaccel.ml.yml info for cuda/nvidia is added here.
     cuda:
       deploy:
         resources:
@@ -129,6 +129,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
+      # Changeup the path for my unraid setup, this needs to be on the SSD or cache drive in unraid.
       device: /mnt/user/appdata_immich/immich/config
       o: bind
 
@@ -136,7 +137,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      #changeup the path for my unraid setup with secondary cashe drives and zpool
+      # Changeup the path for my unraid setup with secondary cashe drives and zpool for the photo storage.  
       device: /mnt/user/appdata_immich/immich/photos
       o: bind
 
@@ -144,7 +145,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      #changeup the path for my unraid setup with secondary cashe drives and zpool
+      # Changeup the path for my unraid setup, this must to be on the SSD or cache drive in unraid for the DB.
       device: /mnt/user/appdata_immich/immich/database/postgres
       o: bind
 
@@ -152,6 +153,6 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      #changeup the path for my unraid setup with secondary cashe drives and zpool
+      # Changeup the path for my unraid setup, this needs to be on the SSD or cache drive in unraid.
       device: /mnt/user/appdata_immich/immich/database/redis
       o: bind
