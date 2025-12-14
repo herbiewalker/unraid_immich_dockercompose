@@ -1,2 +1,5 @@
 # Pre-create Unraid folders for the Immich stack (BASH)
 mkdir -p /mnt/user/appdata_immich/immich/{config,database/postgres,database/redis,photos}
+
+# When using the zpool to store photos use this line as well
+mkdir -p /mnt/user/immich/immich/{photos}
