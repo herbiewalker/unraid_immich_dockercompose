@@ -55,7 +55,7 @@ mkdir -p /mnt/user/immich/immich/photos
 ```
 
 ## Hardening to-do
-- Rotate `DB_PASSWORD` off the default `postgres` — on an existing DB this is `ALTER USER ... WITH PASSWORD` **plus** the env var, in lockstep (see `4_MyUnraid_example.env`).
+- Rotate `DB_PASSWORD` off the default `ChangeMe` — on an existing DB this is `ALTER USER ... WITH PASSWORD` **plus** the env var, in lockstep (see `4_MyUnraid_example.env`).
 - Consider binding port `2283` to a single interface instead of all (`<IP>:2283:2283`).
 - `IMMICH_VERSION` is pinned to `v2.7.5` — bump deliberately after reading release notes + a DB backup.
 
