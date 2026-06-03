@@ -10,6 +10,9 @@ services:
     container_name: immich_server
     image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
     # Extends are taken out and the file: hwaccel.transcoding.yml info for nvenc/nvidia is added here.
+    # 'runtime: nvidia' is REQUIRED on Unraid (nvidia-driver plugin) for the GPU reservation below to attach.
+    # This line was present in the live/deployed stack but missing from this file - added for parity.
+    runtime: nvidia
     deploy:
       resources:
         reservations:
@@ -31,6 +34,8 @@ services:
     env_file:
       - .env
     ports:
+      # SECURITY: Immich has no network-layer auth gate. Consider
+      # binding to a single interface instead of all of them, e.g. '<LAN_or_tailscale_IP>:2283:2283'.
       - '2283:2283'
     depends_on: # 'depends on' means that it doesnt start untill these services are running as it depends on these services
       - redis
@@ -53,6 +58,8 @@ services:
     # For hardware acceleration, add one of -[armnn, cuda, rocm, openvino, rknn] to the image tag.
     # Example tag: ${IMMICH_VERSION:-release}-cuda
     # Extends are taken out and the file: hwaccel.ml.yml info for cuda/nvidia is added here.
+    # 'runtime: nvidia' is REQUIRED on Unraid for the -cuda image to reach the GPU - added for parity with live.
+    runtime: nvidia
     deploy:
       resources:
         reservations:
@@ -78,6 +85,8 @@ services:
 
   redis:
     container_name: immich_redis
+    # Upstream now defaults to valkey:9; valkey:8 below matches your running stack and is fine.
+    # Redis/Valkey is only an ephemeral job cache for Immich, so the redis-data persist + 'public' exposure are low-risk (no published port).
     image: docker.io/valkey/valkey:8-bookworm@sha256:ff21bc0f8194dc9c105b769aeabf9585fea6a8ed649c0781caeac5cb3c247884
     volumes:
       - redis-data:/data
@@ -95,6 +104,12 @@ services:
   database:
     container_name: immich_postgres
     image: ghcr.io/immich-app/postgres:18-vectorchord0.5.3
+    # Matches your LIVE DB (PG18, vchord 0.5.3, vector 0.8.1) - do NOT change the major version or the
+    # /var/lib/postgresql/18/docker path without a full backup + dump/restore; doing so would orphan the DB.
+    # Recommended: pin by digest for reproducibility. Capture the digest you're running with:
+    #   docker inspect immich_postgres --format '{{index .RepoDigests 0}}'
+    # then use  ...:18-vectorchord0.5.3@sha256:<digest>
+    shm_size: 128mb            # Postgres needs >64MB shared mem for vacuum/parallel queries; upstream sets this. Restored here.
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_USER: ${DB_USERNAME}
