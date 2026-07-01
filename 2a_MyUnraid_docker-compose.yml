@@ -34,8 +34,8 @@ services:
     env_file:
       - .env
     ports:
-      # SECURITY: Immich has no network-layer auth gate. Consider
-      # binding to a single interface instead of all of them, e.g. '<LAN_or_tailscale_IP>:2283:2283'.
+      # SECURITY: Immich has no network-layer auth gate in front of it. Consider binding this port
+      # to a single trusted interface (LAN or VPN) instead of all of them, e.g. '<IP>:2283:2283'.
       - '2283:2283'
     depends_on: # 'depends on' means that it doesnt start untill these services are running as it depends on these services
       - redis

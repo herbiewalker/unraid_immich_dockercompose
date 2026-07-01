@@ -1,6 +1,6 @@
-# Immich on server-b (Unraid) — docker-compose stack
+# Immich on Unraid — docker-compose stack
 
-Docker Compose files for my Immich stack on the **server-b** Unraid server.
+Docker Compose files for my Immich stack on Unraid.
 This is a **live, in-use install** — the photo library and database must be preserved.
 
 ## Files in this repo
@@ -14,7 +14,7 @@ This is a **live, in-use install** — the photo library and database must be pr
 | `3_ImmichSiteOG_Example.env` | Upstream reference `.env`. |
 | `Pre-create Unraid folders.txt` | `mkdir` commands to pre-create the share folders. |
 | `Fetch hwaccel compose files.txt` | How to pull upstream `hwaccel.*.yml` (settings are inlined into `2a`, so not required). |
-| `server-b-diagnostics-*.zip` | Unraid diagnostics snapshot for reference. |
+| `*-diagnostics-*.zip` | Unraid diagnostics snapshot for local reference (git-ignored — not committed). |
 
 ## Live stack (verified 2026-06-02, all healthy)
 
@@ -55,8 +55,8 @@ mkdir -p /mnt/user/immich/immich/photos
 ```
 
 ## Hardening to-do
-- Rotate `DB_PASSWORD` off the default `ChangeMe` — on an existing DB this is `ALTER USER ... WITH PASSWORD` **plus** the env var, in lockstep (see `4_MyUnraid_example.env`).
-- Consider binding port `2283` to a single interface instead of all (`<IP>:2283:2283`).
+- Set `DB_PASSWORD` to a strong, unique value — on an existing DB this is `ALTER USER ... WITH PASSWORD` **plus** the env var, in lockstep (see `4_MyUnraid_example.env`).
+- Immich has no built-in auth gate; consider binding port `2283` to a single trusted interface (LAN or VPN) instead of all (`<IP>:2283:2283`).
 - `IMMICH_VERSION` is pinned to `v2.7.5` — bump deliberately after reading release notes + a DB backup.
 
 ## References

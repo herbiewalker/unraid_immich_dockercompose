@@ -1,0 +1,14 @@
+# Never commit real secrets — keep only the *_example.env templates in the repo
+.env
+*.env
+!*_example.env
+!*_Example.env
+
+# Diagnostics / dumps that can leak host details
+*.zip
+*.sql
+
+# Logs and OS cruft
+*.log
+.DS_Store
+Thumbs.db
