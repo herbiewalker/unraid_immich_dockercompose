@@ -1,7 +1,23 @@
 # Immich on Unraid — docker-compose stack
 
-Docker Compose files for my Immich stack on Unraid.
+Docker Compose files for my [Immich](https://immich.app) (self-hosted photo/video
+library) stack on Unraid.
 This is a **live, in-use install** — the photo library and database must be preserved.
+
+> **TL;DR:** deploy `2a_MyUnraid_docker-compose.yml`, copy `4_MyUnraid_example.env`
+> to `.env` and set a real `DB_PASSWORD`. Everything else is reference or fallback.
+
+## The stack at a glance
+
+Four containers on one internal bridge network (`immich-net`). Only the web UI
+port is published to the host:
+
+| Service | Container | Role |
+|---------|-----------|------|
+| `immich-server` | `immich_server` | Web UI + API. Published on host port **2283**. |
+| `immich-machine-learning` | `immich_machine_learning` | Smart search, face/object detection. Uses the CUDA image on GPU. |
+| `redis` (valkey) | `immich_redis` | Ephemeral job-queue cache. No published port; data is throwaway. |
+| `database` (postgres) | `immich_postgres` | Postgres 18 + VectorChord — photo metadata and search vectors. **The important state.** |
 
 ## Files in this repo
 
@@ -12,8 +28,8 @@ This is a **live, in-use install** — the photo library and database must be pr
 | `1_ImmichSiteOG_docker-compose.yml` | Upstream reference compose (unmodified). Do not deploy as-is. |
 | `4_MyUnraid_example.env` | Example `.env` (TZ, pinned version, DB connection). |
 | `3_ImmichSiteOG_Example.env` | Upstream reference `.env`. |
-| `Pre-create Unraid folders.txt` | `mkdir` commands to pre-create the share folders. |
-| `Fetch hwaccel compose files.txt` | How to pull upstream `hwaccel.*.yml` (settings are inlined into `2a`, so not required). |
+| `pre-create-folders.sh` | Creates the Unraid share folders the stack bind-mounts. Run once on a fresh host. |
+| `fetch-hwaccel-files.sh` | Pulls upstream `hwaccel.*.yml` (only if you prefer `extends:` — settings are already inlined into `2a`). |
 | `*-diagnostics-*.zip` | Unraid diagnostics snapshot for local reference (git-ignored — not committed). |
 
 ## Live stack (verified 2026-06-02, all healthy)

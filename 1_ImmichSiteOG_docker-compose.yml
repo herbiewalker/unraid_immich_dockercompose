@@ -1,3 +1,10 @@
+# ============================================================================
+#  1_ImmichSiteOG_docker-compose.yml  —  UNMODIFIED UPSTREAM REFERENCE
+# ============================================================================
+#  Immich's official example compose, kept verbatim for diffing against my
+#  customized files (2 / 2a). DO NOT deploy this one as-is on my Unraid host —
+#  it has no GPU config and none of my Unraid storage bind mounts.
+# ============================================================================
 #
 # WARNING: To install Immich, follow our guide: https://docs.immich.app/install/docker-compose
 #

@@ -1,7 +1,26 @@
-# Always use the compose file from the current release:
-# https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
-# Main branch may not match the latest release.
-# The updated Docker Compose for my Unraid Setup which includes GPU for transcode and ML. Will need to test and update per my cache and zpool
+# ============================================================================
+#  2a_MyUnraid_docker-compose.yml  —  CANONICAL / DEPLOY THIS ONE
+# ============================================================================
+#  Immich on Unraid WITH NVIDIA GPU acceleration (NVENC video transcoding +
+#  CUDA machine learning). This is the finalized, live configuration.
+#
+#  Four services, all on an internal bridge network (immich-net):
+#    immich-server ............ web UI + API, published on host port 2283
+#    immich-machine-learning .. smart-search / face & object detection (CUDA)
+#    redis (valkey) ........... ephemeral job-queue cache (no persistence needed)
+#    database (postgres) ...... Postgres 18 + VectorChord — photo metadata + vectors
+#
+#  GPU: hwaccel settings are INLINED below (runtime: nvidia + the
+#  deploy.reservations.devices block) rather than pulled from upstream's
+#  hwaccel.*.yml via `extends:`. The Unraid nvidia-driver plugin must be
+#  installed for this to attach the GPU.
+#
+#  Storage: named volumes bind to Unraid host paths (see the `volumes:` block
+#  at the bottom). Adjust those paths to your own cache/array/zpool layout.
+#
+#  Upstream reference:
+#  https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
+# ============================================================================
 
 name: immich
 
