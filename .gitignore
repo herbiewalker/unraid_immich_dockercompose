@@ -1,8 +1,7 @@
-# Never commit real secrets — keep only the *_example.env templates in the repo
+# Never commit a real env file — only the *.example templates belong in the repo
 .env
 *.env
-!*_example.env
-!*_Example.env
+!*.example
 
 # Diagnostics / dumps that can leak host details
 *.zip

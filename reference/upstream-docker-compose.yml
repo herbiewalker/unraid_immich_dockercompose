@@ -1,8 +1,9 @@
 # ============================================================================
-#  1_ImmichSiteOG_docker-compose.yml  —  UNMODIFIED UPSTREAM REFERENCE
+#  reference/upstream-docker-compose.yml  —  UNMODIFIED UPSTREAM REFERENCE
 # ============================================================================
 #  Immich's official example compose, kept verbatim for diffing against my
-#  customized files (2 / 2a). DO NOT deploy this one as-is on my Unraid host —
+#  customized files (compose/immich.cpu.yml / immich.gpu.yml). DO NOT deploy
+#  this one as-is on my Unraid host —
 #  it has no GPU config and none of my Unraid storage bind mounts.
 # ============================================================================
 #

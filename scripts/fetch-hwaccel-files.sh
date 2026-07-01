@@ -1,7 +1,7 @@
 #!/bin/bash
 # Fetch Immich's upstream hardware-acceleration compose fragments.
 #
-# You usually do NOT need these: 2a_MyUnraid_docker-compose.yml already INLINES
+# You usually do NOT need these: compose/immich.gpu.yml already INLINES
 # the NVIDIA settings, so there is nothing to `extends:` from. Keep this only if
 # you'd rather use upstream's `extends:` approach with hwaccel.*.yml instead.
 #

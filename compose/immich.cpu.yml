@@ -1,12 +1,12 @@
 # ============================================================================
-#  2_MyUnraid_docker-compose.yml  —  CPU-ONLY FALLBACK
+#  compose/immich.cpu.yml  —  CPU-ONLY FALLBACK
 # ============================================================================
-#  Same Immich stack as 2a, but WITHOUT the NVIDIA GPU blocks. Transcoding and
-#  machine learning fall back to the CPU. Use this if the GPU isn't available —
-#  e.g. right after an Unraid OS update, before the nvidia-driver plugin
-#  rebuilds its kernel module.
+#  Same Immich stack as immich.gpu.yml, but WITHOUT the NVIDIA GPU blocks.
+#  Transcoding and machine learning fall back to the CPU. Use this if the GPU
+#  isn't available — e.g. right after an Unraid OS update, before the
+#  nvidia-driver plugin rebuilds its kernel module.
 #
-#  For the normal GPU-accelerated setup, deploy 2a_MyUnraid_docker-compose.yml.
+#  For the normal GPU-accelerated setup, deploy compose/immich.gpu.yml.
 #
 #  Upstream reference:
 #  https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml

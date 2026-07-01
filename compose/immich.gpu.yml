@@ -1,5 +1,5 @@
 # ============================================================================
-#  2a_MyUnraid_docker-compose.yml  —  CANONICAL / DEPLOY THIS ONE
+#  compose/immich.gpu.yml  —  CANONICAL / DEPLOY THIS ONE
 # ============================================================================
 #  Immich on Unraid WITH NVIDIA GPU acceleration (NVENC video transcoding +
 #  CUDA machine learning). This is the finalized, live configuration.

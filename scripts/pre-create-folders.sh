@@ -9,6 +9,7 @@
 # Config + databases live on the SSD cache pool:
 mkdir -p /mnt/user/appdata_immich/immich/{config,database/postgres,database/redis,photos}
 
-# If you store the photo library on the ZFS pool instead (as 2a's immich-photos
-# volume does), create that path too — and drop `photos` from the line above.
+# If you store the photo library on the ZFS pool instead (as the immich-photos
+# volume in compose/immich.gpu.yml does), create that path too — and drop
+# `photos` from the line above.
 mkdir -p /mnt/user/immich/immich/photos
