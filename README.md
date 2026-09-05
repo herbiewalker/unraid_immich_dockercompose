@@ -40,12 +40,14 @@ reference/
 
 ## Live stack (verified 2026-09-05, all healthy)
 
-- **Immich:** v2.7.5 (server + machine-learning; ML uses the `-cuda` image with `runtime: nvidia`). CUDAExecutionProvider confirmed active in ML logs; GPU load observed during Smart Search / Facial Recognition jobs.
-- **Postgres:** already **PG18** — `postgres:18-vectorchord0.5.3`, data at `/var/lib/postgresql/18/docker`, VectorChord 0.5.3 + pgvector 0.8.1. No pg14→pg18 migration is pending.
-- **Redis:** `valkey:8-bookworm`.
+- **Immich:** **v3.1.0** — server + machine-learning; ML uses the `-cuda` image with `runtime: nvidia`. CUDAExecutionProvider active in ML logs; GPU load observed during Smart Search / Facial Recognition jobs. Bumped from v2.7.5 same session — DB migrations ran cleanly, `AssetOcrSync` applied, geodata re-imported (~228k records in ~4s).
+- **Postgres:** **PG18** — `postgres:18-vectorchord0.5.3`, data at `/var/lib/postgresql/18/docker`, VectorChord 0.5.3 + pgvector 0.8.1. Already ahead of upstream's example (which still uses PG14).
+- **Redis:** `valkey:8-bookworm` (upstream v3.1.0 example uses `valkey:9`; ours keeps 8 for continuity — cache is ephemeral, no migration cost either way).
 - **GPU:** NVIDIA RTX 3060 Ti (driver 595.84 / CUDA 13.2), `nvidia-driver` plugin. GPU services need **`runtime: nvidia`** + the `deploy.reservations.devices` block.
 
-> **First-boot gotcha (ML `-cuda` image):** after switching ML to `-cuda`, the container may come up `unhealthy` and refuse all connections (including its own `localhost:3003/ping`) for many minutes on first launch, with only gunicorn boot lines in the logs. A plain `docker restart immich_machine_learning` clears it — models then load and the CUDA provider initialises normally. If it recurs after an image bump, restart before rebuilding.
+> **`IMMICH_MEDIA_LOCATION` is required from v3.x on:** Immich moved the in-container media default from `/usr/src/app/upload` to `/data`. This compose still binds photos to the legacy path, so the `.env` sets `IMMICH_MEDIA_LOCATION=/usr/src/app/upload` as a compatibility shim (see the block in `env/immich.env.example` for the full rationale). Long-term fix is to migrate the compose mount to `/data` and drop the shim — kept as a separate, standalone change for safety.
+
+> **First-boot gotcha (ML `-cuda` image, v2.7.5 only):** on the v2.x line, the CUDA ML container could come up `unhealthy` and refuse all connections (including its own `localhost:3003/ping`) for many minutes on first launch — a plain `docker restart immich_machine_learning` cleared it. **Not seen on v3.1.0** — the container came up healthy immediately after the version bump. If a future recreate stalls, restart before rebuilding.
 
 ## Storage layout (non-standard — read before changing paths)
 
