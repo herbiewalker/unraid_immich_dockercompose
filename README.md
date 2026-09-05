@@ -38,12 +38,14 @@ reference/
 > Local-only, never committed (see `.gitignore`): the real `.env`, `*-diagnostics-*.zip`
 > Unraid diagnostics snapshots, and `*.sql` DB dumps.
 
-## Live stack (verified 2026-06-02, all healthy)
+## Live stack (verified 2026-09-05, all healthy)
 
-- **Immich:** v2.7.5 (server + machine-learning; ML uses the `-cuda` image).
+- **Immich:** v2.7.5 (server + machine-learning; ML uses the `-cuda` image with `runtime: nvidia`). CUDAExecutionProvider confirmed active in ML logs; GPU load observed during Smart Search / Facial Recognition jobs.
 - **Postgres:** already **PG18** — `postgres:18-vectorchord0.5.3`, data at `/var/lib/postgresql/18/docker`, VectorChord 0.5.3 + pgvector 0.8.1. No pg14→pg18 migration is pending.
 - **Redis:** `valkey:8-bookworm`.
-- **GPU:** NVIDIA RTX 3060 Ti (driver 595.71.05 / CUDA 13.2), `nvidia-driver` plugin. GPU services need **`runtime: nvidia`** + the `deploy.reservations.devices` block.
+- **GPU:** NVIDIA RTX 3060 Ti (driver 595.84 / CUDA 13.2), `nvidia-driver` plugin. GPU services need **`runtime: nvidia`** + the `deploy.reservations.devices` block.
+
+> **First-boot gotcha (ML `-cuda` image):** after switching ML to `-cuda`, the container may come up `unhealthy` and refuse all connections (including its own `localhost:3003/ping`) for many minutes on first launch, with only gunicorn boot lines in the logs. A plain `docker restart immich_machine_learning` clears it — models then load and the CUDA provider initialises normally. If it recurs after an image bump, restart before rebuilding.
 
 ## Storage layout (non-standard — read before changing paths)
 
